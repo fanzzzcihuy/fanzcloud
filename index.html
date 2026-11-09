@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fanz Digital – Panel, VPS &amp; Script Bot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F9FF;--card:#fff;--ink:#0B1730;--mute:#55657F;--line:#DCE5F5;--acc:#2563EB;--acc-ink:#fff;--accT:#1D4ED8;--soft:#E4EDFF;
+--fh:'Bricolage Grotesque',system-ui,sans-serif;--fb:'Instrument Sans',system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1224;--card:#111C33;--ink:#EAF1FF;--mute:#9FB0CE;--line:#22345A;--acc:#4C8DFF;--acc-ink:#06122B;--accT:#7FB0FF;--soft:#14264A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A1224;--card:#111C33;--ink:#EAF1FF;--mute:#9FB0CE;--line:#22345A;--acc:#4C8DFF;--acc-ink:#06122B;--accT:#7FB0FF;--soft:#14264A;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--fb)}
+h1,h2,h3{font-family:var(--fh);line-height:1.1;margin:0}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:800 20px var(--fh);text-decoration:none}
+.logo i{font-style:normal;color:var(--accT)}
+.nav{display:flex;gap:10px;align-items:center}
+button,.btn{font:600 15px var(--fb);cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;text-decoration:none;display:inline-block;transition:transform .12s ease;-webkit-tap-highlight-color:transparent}
+button:active,.btn:active{transform:scale(.92)}
+[hidden]{display:none!important}
+button,.btn{position:relative;overflow:hidden}
+button:disabled{opacity:.75;cursor:wait}
+.rip{position:absolute;border-radius:50%;background:currentColor;opacity:.28;transform:scale(0);animation:rip .5s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+.prod{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+@media(hover:hover){.prod:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 12px 28px rgba(37,99,235,.18)}}
+.prod:active{transform:scale(.97);box-shadow:none}
+.sk{background:linear-gradient(100deg,var(--line) 30%,var(--soft) 50%,var(--line) 70%);background-size:200% 100%;animation:shim 1.2s linear infinite;border-radius:10px}
+@keyframes shim{from{background-position:200% 0}to{background-position:-200% 0}}
+.skcard{height:320px;border-radius:16px}
+.qrsk{width:160px;height:160px;margin:14px auto 0}
+.btn.p,button.p{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.hero{padding:52px 0 36px;display:grid;gap:32px}
+@media(min-width:820px){.hero{grid-template-columns:1.1fr .9fr;align-items:center;padding:80px 0 56px}}
+.hero h1{font-size:clamp(36px,6vw,60px);font-weight:800;letter-spacing:-.02em}
+.hero p{color:var(--mute);max-width:46ch;margin:16px 0 24px}
+.order{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.order b{font-family:var(--fh)}
+.steps{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:center;color:var(--mute);transition:color .3s}
+.steps li::before{content:"";width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none;transition:.3s}
+.steps li.on{color:var(--ink)}
+.steps li.on::before{background:var(--acc);border-color:var(--acc)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 20px}
+.tabs button[aria-pressed="true"],.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h2{font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.01em}
+.grid{display:grid;gap:16px;margin-top:16px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.prod h3{font-size:22px}
+.tag{font-size:13px;font-weight:600;color:var(--accT);background:var(--soft);border-radius:6px;padding:2px 8px;align-self:flex-start}
+.tag.s{color:var(--mute);background:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{padding:6px 10px;font-size:14px}
+.price{font:800 30px var(--fh)}
+.price small{font:500 14px var(--fb);color:var(--mute)}
+.prod ul{margin:0;padding:0;list-style:none;color:var(--mute);font-size:15px}
+.prod li{padding-left:22px;position:relative}
+.prod li::before{content:"✓";position:absolute;left:0;color:var(--accT);font-weight:700}
+.prod .btn{margin-top:auto;text-align:center}
+.scroll{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+tr:last-child td{border:0}
+th{font-weight:600;color:var(--mute)}
+section{padding:36px 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:10px}
+summary{font-weight:600;cursor:pointer}
+details p{color:var(--mute);margin:10px 0 0}
+footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--mute);font-size:14px;margin-top:24px}
+.modal{position:fixed;inset:0;background:rgba(5,10,18,.6);display:none;align-items:flex-end;justify-content:center;z-index:10;padding:0}
+.modal.open{display:flex}
+@media(min-width:620px){.modal{align-items:center;padding:20px}}
+.sheet{background:var(--card);width:100%;max-width:440px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:22px}
+@media(min-width:620px){.sheet{border-radius:18px}}
+.sheet label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+.sheet input{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:6px 0}
+.tot{font:700 20px var(--fh);border-top:1px solid var(--line);margin-top:8px;padding-top:12px}
+.qr{width:200px;height:200px;margin:14px auto;display:block;background:#fff;padding:8px;border-radius:10px}
+.note{color:var(--mute);font-size:13px}
+.center{text-align:center}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.rip{display:none}.sk{animation:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<a class="logo" href="#">Fanz <i>Digital</i></a>
+<nav class="nav"><button id="theme" aria-label="Ganti tema">Tema</button><span id="auth" class="nav"></span></nav>
+</div></header>
+
+<main class="wrap">
+<div class="hero">
+<div>
+<h1>Beli panel, VPS, dan script, langsung aktif.</h1>
+<p>Pilih produk, login dengan Google, bayar lewat QRIS. Panel Pterodactyl dibuat otomatis dalam hitungan detik.</p>
+<a class="btn p" href="#produk">Pilih panel</a> <a class="btn" href="#faq">Cara beli</a>
+</div>
+<div class="order" aria-live="polite">
+<b>Pesanan #CK-2041</b> <span class="note">· contoh alur</span>
+<ul class="steps" id="steps">
+<li>Pesanan dibuat</li><li>Pembayaran QRIS terdeteksi</li><li>Panel dibuat di server</li><li>Login panel dikirim ke Dashboard</li>
+</ul>
+</div>
+</div>
+
+<section id="produk">
+<h2>Produk</h2>
+<div class="tabs" id="tabs" role="group" aria-label="Kategori"></div>
+<div class="grid" id="grid"></div>
+</section>
+
+<section>
+<h2>Pilih yang mana?</h2>
+<div class="scroll"><table>
+<tr><th></th><th>Panel</th><th>Reseller Panel</th><th>VPS</th></tr>
+<tr><td>Server</td><td>Digital Ocean, Singapore</td><td>Digital Ocean, Singapore</td><td>Digital Ocean, Singapore</td></tr>
+<tr><td>Garansi</td><td>10 hari</td><td>10 hari</td><td>10 hari</td></tr>
+<tr><td>Cocok untuk</td><td>Menjalankan bot sendiri</td><td>Jualan panel ke pelanggan</td><td>Kontrol penuh, akses root</td></tr>
+</table></div>
+</section>
+
+<section id="faq">
+<h2>Pertanyaan yang sering ditanya</h2>
+<details><summary>Bagaimana cara membeli?</summary><p>Pilih produk dan varian, klik Beli sekarang, login dengan Google, isi data, lalu bayar lewat QRIS. Pesanan diproses otomatis setelah pembayaran terdeteksi.</p></details>
+<details><summary>Apa itu kode unik di total pembayaran?</summary><p>Kode unik ditambahkan ke nominal agar sistem bisa mengenali pembayaranmu otomatis. Bayar sesuai total yang tampil.</p></details>
+<details><summary>Bagaimana memakai kode referral?</summary><p>Masukkan kode di kolom kode pada halaman checkout lalu klik Pakai. Satu order hanya bisa memakai satu kode.</p></details>
+<details><summary>Apa yang terjadi kalau masa aktif habis?</summary><p>Panel disuspend otomatis. Jika belum diperpanjang dalam 24 jam, panel dan datanya dihapus permanen.</p></details>
+<details><summary>Pembayaran masuk tapi pesanan belum aktif?</summary><p>Tunggu satu sampai dua menit. Jika masih belum aktif, hubungi admin dengan nomor invoice.</p></details>
+</section>
+</main>
+
+<footer><div class="wrap">© 2026 Fanz Digital. Layanan dipakai dengan wajar, tidak untuk spam atau penipuan.</div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet" id="sheet"></div></div>
+
+<script>
+const DATA={
+do:{g:'panel',cat:'Panel Digital Ocean',tag:'Hemat',name:'Panel Pterodactyl (Digital Ocean)',desc:'Region Singapore, SSD NVMe. Cocok untuk pemula.',vars:{'2GB':4000,'3GB':6000,'4GB':8000,'Unlimited':20000},def:'2GB',feat:['Region Singapore','SSD NVMe','Bisa diperpanjang','Garansi 10 hari']},
+reseller:{g:'panel',cat:'Reseller Panel',tag:'Siap',name:'Reseller Panel (Digital Ocean)',desc:'Jual panel sendiri dengan harga reseller. Server Singapore.',vars:{'Reseller':15000},def:'Reseller',feat:['Bisa membuat panel untuk pelanggan','Harga khusus reseller','Full bimbingan dan support','Garansi 10 hari']},
+vps:{g:'vps',cat:'VPS',tag:'Siap',name:'VPS Digital Ocean',desc:'VPS Singapore dengan akses root penuh. Aktif 30 hari dan bisa diperpanjang.',vars:{'1GB / 1 vCPU':35000,'2GB / 1 vCPU':50000,'2GB / 2 vCPU':65000,'4GB / 2 vCPU':100000,'8GB / 4 vCPU':190000},def:'2GB / 1 vCPU',feat:['Akses root penuh','Pilihan OS Ubuntu atau Debian','Bisa diperpanjang kapan saja','Garansi 10 hari']},
+otp:{g:'script',cat:'Script',tag:'Siap',name:'Script Order OTP / Nokos',desc:'Bot auto order nomor virtual (nokos) dan OTP. Node.js.',vars:{'Tanpa update':25000,'Full update':45000},def:'Tanpa update',feat:['File .zip otomatis terunduh setelah bayar','Bisa diunduh ulang dari Dashboard','Full update: dapat link grup update']},
+auto:{g:'script',cat:'Script',tag:'Siap',name:'Script Auto Order Lainnya',desc:'Bot auto order produk digital untuk Telegram dan WhatsApp. Node.js.',vars:{'Tanpa update':20000,'Full update':35000},def:'Tanpa update',feat:['File .zip otomatis terunduh setelah bayar','Bisa diunduh ulang dari Dashboard','Full update: dapat link grup update']},
+jasa:{g:'jasa',cat:'Jasa',tag:'Layanan',name:'Jasa Script Bot Custom',desc:'Dibuatkan bot sesuai kebutuhanmu untuk Telegram atau WhatsApp. Fitur dibahas dulu dengan admin.',vars:{'Mulai dari':35000},def:'Mulai dari',feat:['Fitur sesuai permintaan','Source code dikirim setelah selesai','Revisi kecil setelah serah terima','Harga final sesuai tingkat kesulitan']}
+};
+const sel={};let cat='all';
+const rp=n=>'Rp'+n.toLocaleString('id-ID');
+const $=s=>document.querySelector(s);
+function tabs(){const c=[['all','Semua'],['panel','Panel'],['vps','VPS'],['script','Script'],['jasa','Jasa']];
+$('#tabs').innerHTML=c.map(([k,l])=>`<button aria-pressed="${cat===k}" data-k="${k}">${l}</button>`).join('');
+$('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{cat=b.dataset.k;tabs();grid()})}
+function grid(){const keys=Object.keys(DATA).filter(k=>cat==='all'||DATA[k].g===cat);
+$('#grid').innerHTML=keys.map(k=>{const d=DATA[k];const v=sel[k]||(sel[k]=d.def);
+return `<article class="prod"><span class="tag ${d.tag==='Hemat'?'s':''}">${d.tag}</span><h3>${d.name}</h3><div class="note">${d.desc}</div>
+<div class="chips" role="group" aria-label="Varian">${Object.keys(d.vars).map(x=>`<button aria-pressed="${x===v}" data-k="${k}" data-v="${x}">${x}</button>`).join('')}</div>
+<div class="price">${rp(d.vars[v])} <small>/ ${DATA[k].g==='jasa'?'harga awal':DATA[k].g==='script'?'sekali bayar':'30 hari'}</small></div>
+<ul>${d.feat.map(f=>`<li>${f}</li>`).join('')}</ul>
+<button class="btn p buy" data-k="${k}">Beli sekarang</button></article>`}).join('');
+document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{sel[b.dataset.k]=b.dataset.v;grid()});
+document.querySelectorAll('.buy').forEach(b=>b.onclick=()=>checkout(b.dataset.k))}
+function qr(seed){let s=0;for(const c of seed)s=(s*31+c.charCodeAt(0))>>>0;const n=21;let r='';
+for(let y=0;y<n;y++)for(let x=0;x<n;x++){const f=(x<7&&y<7)||(x>13&&y<7)||(x<7&&y>13);
+let on;if(f){const a=x<7?x:x-14,b=y<7?y:y-14;on=a===0||a===6||b===0||b===6||(a>1&&a<5&&b>1&&b<5)}else{s=(s*1103515245+12345)>>>0;on=(s>>>16)&1}
+if(on)r+=`<rect x="${x}" y="${y}" width="1" height="1"/>`}
+return `<svg class="qr" viewBox="-1 -1 ${n+2} ${n+2}" role="img" aria-label="Contoh kode QRIS" fill="#0F1B2D">${r}</svg>`}
+let timer,poll;
+function open(h){$('#sheet').innerHTML=h;$('#modal').classList.add('open')}
+function close(){clearInterval(timer);clearInterval(poll);$('#modal').classList.remove('open')}
+$('#modal').onclick=e=>{if(e.target.id==='modal')close()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+function checkout(k){const d=DATA[k],v=sel[k],base=d.vars[v];
+open(`<h3 id="mt">Checkout</h3><div class="note">${d.name} · ${v}</div>
+<label for="em">Email Google</label><input id="em" type="email" placeholder="kamu@gmail.com" autocomplete="email" value="${user?esc(user.email):''}">
+<label for="cd">Kode referral atau redeem</label><div style="display:flex;gap:8px"><input id="cd" placeholder="Contoh: HEMAT10"><button id="use">Pakai</button></div>
+<div class="note" id="cm"></div>
+<div class="row" style="margin-top:10px"><span>Harga</span><span id="pr">${rp(base)}</span></div>
+<div class="row"><span>Diskon</span><span id="ds">Rp0</span></div>
+<div class="row tot"><span>Total</span><span id="tt">${rp(base)}</span></div>
+<button class="btn p" id="go" style="width:100%;margin-top:14px">Buat QRIS</button>
+<button id="cx" style="width:100%;margin-top:8px">Batal</button>`);
+let disc=0;
+$('#use').onclick=()=>{const c=$('#cd').value.trim().toUpperCase();
+if(c==='HEMAT10'){disc=Math.round(base*.1);$('#cm').textContent='Kode dipakai: diskon 10%'}else{disc=0;$('#cm').textContent=c?'Kode tidak ditemukan. Coba HEMAT10 untuk contoh.':''}
+$('#ds').textContent='-'+rp(disc);$('#tt').textContent=rp(base-disc)};
+$('#cx').onclick=close;
+$('#go').onclick=()=>{const em=$('#em').value.trim();if(!/^\S+@\S+\.\S+$/.test(em)){$('#cm').textContent='Isi email yang valid dulu.';$('#em').focus();return}
+order(k,v,em,$('#cd').value.trim(),d,base-disc)}}
+async function order(k,v,em,code,d,amt){
+let live=null;const g=$('#go'),sk=document.createElement('div');sk.className='sk qrsk';g.before(sk);g.disabled=true;g.textContent='Membuat QRIS...';
+const back=()=>{sk.remove();g.disabled=false;g.textContent='Buat QRIS'};
+try{const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:k,variant:v,email:em,code})});
+const j=await r.json();if(r.ok&&j.success)live=j.data;else if(r.status<500&&r.status!==404&&j.message){back();$('#cm').textContent=j.message;return}}catch(e){}
+await new Promise(r=>setTimeout(r,450));
+pay(d,v,live?live.totalAmount:amt+Math.floor(Math.random()*90)+10,live)}
+function success(c){
+const lk=(h,t,p)=>h?`<a class="btn ${p}" style="width:100%;text-align:center;margin-top:8px" href="${esc(h)}" target="_blank" rel="noopener">${t}</a>`:'';
+open(`<div class="center"><h3 id="mt">Pembayaran diterima</h3>
+<p class="note">${c.code?'Simpan kode klaim ini, lalu kirim lewat Telegram atau WhatsApp untuk mengambil produkmu.':'Pesananmu sedang diproses.'}</p>
+${c.code?`<div class="tot" style="border:0;letter-spacing:.06em">${esc(c.code)}</div><button id="cp" style="width:100%">Salin kode</button>`:''}
+${lk(c.tg,'Klaim via Telegram','p')}${lk(c.wa,'Klaim via WhatsApp','')}
+${c.demo?'<p class="note">Contoh tampilan. Tombol klaim aktif saat situs berjalan di server.</p>':''}
+<button id="ok" style="width:100%;margin-top:8px">Selesai</button></div>`);
+$('#ok').onclick=close;
+const cp=$('#cp');if(cp)cp.onclick=async()=>{try{await navigator.clipboard.writeText(c.code);cp.textContent='Kode tersalin'}catch(e){cp.textContent='Salin manual dari kode di atas'}}}
+function pay(d,v,total,live){let t=900;
+open(`<div class="center"><h3 id="mt">Bayar dengan QRIS</h3><div class="note">${d.name} · ${v}</div>${live?`<img class="qr" src="${esc(live.qrImage)}" alt="QRIS">`:qr('ck'+total)}
+<div class="tot" style="border:0">${rp(total)}</div><div class="note">Bayar sesuai total, termasuk kode unik. Sisa waktu <b id="tm">15:00</b></div>
+<button class="btn p" id="sim"${live?' hidden':''} style="width:100%;margin-top:14px">Simulasikan pembayaran masuk</button>
+<button id="cx" style="width:100%;margin-top:8px">Tutup</button></div>`);
+$('#cx').onclick=close;
+if(live)poll=setInterval(async()=>{try{const j=await(await fetch('/api/orders/'+live.orderId)).json();if(j.data&&j.data.status==='paid'){clearInterval(timer);clearInterval(poll);success(j.data.claim||{})}}catch(e){}},10000);
+timer=setInterval(()=>{t--;const e=$('#tm');if(!e||t<=0){close();return}e.textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')},1000);
+$('#sim').onclick=()=>{clearInterval(timer);clearInterval(poll);success({code:'FD-CONTOH123',demo:true})}}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let user=null;const accts={};
+function navr(){const n=$('#auth');
+if(user){n.innerHTML=`<span class="note">Halo, ${esc(user.name)}</span> <button id="lo">Keluar</button>`;$('#lo').onclick=()=>{user=null;navr()}}
+else{n.innerHTML='<button id="li">Masuk</button> <button class="p" id="rg">Daftar</button>';$('#li').onclick=()=>authm('in');$('#rg').onclick=()=>authm('up')}}
+function authm(m){const up=m==='up';
+open(`<h3 id="mt">${up?'Buat akun':'Masuk'}</h3><div class="tabs" style="margin:12px 0 0"><button data-m="in" aria-pressed="${!up}">Masuk</button><button data-m="up" aria-pressed="${up}">Daftar</button></div>
+<button id="gg" style="width:100%;margin-top:14px">Lanjut dengan Google</button>
+<div class="note center" style="margin-top:10px">atau pakai email</div>
+${up?'<label for="nm">Nama</label><input id="nm" autocomplete="name">':''}
+<label for="ae">Email</label><input id="ae" type="email" autocomplete="email">
+<label for="ap">Password</label><input id="ap" type="password" autocomplete="${up?'new-password':'current-password'}">
+<div class="note" id="am" role="alert" style="margin-top:8px"></div>
+<button class="btn p" id="as" style="width:100%;margin-top:10px">${up?'Daftar':'Masuk'}</button>
+<button id="cx" style="width:100%;margin-top:8px">Batal</button>`);
+$('#cx').onclick=close;
+$('#sheet').querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>authm(b.dataset.m));
+$('#gg').onclick=()=>{user={name:'Pengguna Google',email:'pengguna@gmail.com'};close();navr()};
+$('#as').onclick=async()=>{const e=$('#ae').value.trim().toLowerCase(),p=$('#ap').value,msg=t=>{$('#am').textContent=t};
+if(!/^\S+@\S+\.\S+$/.test(e))return msg('Isi email yang valid.');
+if(p.length<6)return msg('Password minimal 6 karakter.');
+try{const r=await fetch('/api/auth/'+(up?'register':'login'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:up?$('#nm').value.trim():'',email:e,password:p})});const j=await r.json();if(r.status!==404&&r.status<500){if(!j.success)return msg(j.message||'Gagal, coba lagi.');user=j.data;close();navr();return}}catch(x){}
+if(up){const n=$('#nm').value.trim();if(!n)return msg('Isi nama dulu.');if(accts[e])return msg('Email sudah terdaftar. Silakan masuk.');accts[e]={n,p};user={name:n,email:e}}
+else{const a=accts[e];if(!a||a.p!==p)return msg('Email atau password salah, atau akun belum terdaftar.');user={name:a.n,email:e}}
+close();navr()}}
+$('#theme').onclick=()=>{const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'};
+(function(){const li=document.querySelectorAll('#steps li');let i=0;const go=()=>{if(i<li.length){li[i++].classList.add('on');setTimeout(go,900)}};setTimeout(go,600)})();
+function skel(){$('#grid').innerHTML=Array(4).fill('<div class="sk skcard" aria-hidden="true"></div>').join('')}
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('button,.btn');if(!b||b.disabled)return;const r=b.getBoundingClientRect(),s=Math.max(r.width,r.height)*2,sp=document.createElement('span');sp.className='rip';sp.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;b.appendChild(sp);setTimeout(()=>sp.remove(),500)});
+tabs();skel();navr();setTimeout(grid,600);
+</script>
+</body>
+</html>
